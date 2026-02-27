@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import SearchResults from '@/components/SearchResults';
 
 export default function Home({ searchParams }: { searchParams: Record<string, string> }) {
