@@ -68,8 +68,8 @@ const Navbar = () => {
     };
   }, []);
 
-  // 隐藏登录和注册页面的导航栏
-  if (pathname === '/login' || pathname === '/register') {
+  // 隐藏登录、注册和阅读页面的导航栏
+  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/read/')) {
     return null;
   }
 
