@@ -68,8 +68,8 @@ const Navbar = () => {
     };
   }, []);
 
-  // 隐藏登录、注册和阅读页面的导航栏
-  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/read/')) {
+  // 隐藏登录和注册页面的导航栏
+  if (pathname === '/login' || pathname === '/register') {
     return null;
   }
 
@@ -109,10 +109,14 @@ const Navbar = () => {
                 <div className="flex items-center space-x-2" ref={mobileMenuRef}>
                   <div className="relative">
                     <div 
-                      className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer"
+                      className="w-8 h-8 rounded-full overflow-hidden cursor-pointer"
                       onClick={() => setMenuOpen(!menuOpen)}
                     >
-                      <User className="h-5 w-5 text-gray-600" />
+                      <img 
+                        src="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/IMG_20260227_220108-imagetourl.cloud-1772200909237-fie8vn.jpg" 
+                        alt="用户头像" 
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                     <div className={`absolute right-0 top-full mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50 ${menuOpen ? 'block' : 'hidden'}`}>
                       <div className="px-4 py-2 text-sm text-gray-700">
@@ -207,8 +211,12 @@ const Navbar = () => {
                       className="flex items-center space-x-2 cursor-pointer"
                       onClick={() => setMenuOpen(!menuOpen)}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                        <User className="h-5 w-5 text-gray-600" />
+                      <div className="w-8 h-8 rounded-full overflow-hidden">
+                        <img 
+                          src="https://pub-141831e61e69445289222976a15b6fb3.r2.dev/Image_to_url_V2/IMG_20260227_220108-imagetourl.cloud-1772200909237-fie8vn.jpg" 
+                          alt="用户头像" 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <span className="text-gray-600 font-medium">{user.email}</span>
                     </div>

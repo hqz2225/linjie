@@ -30,6 +30,19 @@ export async function getNovelById(id: string) {
   return data
 }
 
+// 计算章节字数
+function calculateWordCount(content: string) {
+  // 移除HTML标签
+  const text = content.replace(/<[^>]*>/g, '');
+  // 计算中文字符数（每个中文字符算1个）
+  const chineseChars = text.match(/[\u4e00-\u9fa5]/g)?.length || 0;
+  // 计算英文单词数（按空格分隔）
+  const englishWords = text.match(/\b\w+\b/g)?.length || 0;
+  // 计算标点符号数
+  const punctuation = text.match(/[\p{P}\p{S}]/gu)?.length || 0;
+  return chineseChars + englishWords + punctuation;
+}
+
 // 获取小说的章节列表
 export async function getChapters(novelId: string) {
   const { data, error } = await supabase
@@ -43,7 +56,11 @@ export async function getChapters(novelId: string) {
     return []
   }
   
-  return data
+  // 计算每个章节的字数
+  return data.map(chapter => ({
+    ...chapter,
+    word_count: calculateWordCount(chapter.content)
+  }))
 }
 
 // 获取单个章节
@@ -60,7 +77,11 @@ export async function getChapter(novelId: string, chapterNumber: number) {
     return null
   }
   
-  return data
+  // 计算章节字数
+  return {
+    ...data,
+    word_count: calculateWordCount(data.content)
+  }
 }
 
 // 注册
@@ -74,35 +95,7 @@ export async function signUp(email: string, password: string) {
     return { success: false, error: error.message }
   }
   
-  return { success: true, user: data.user, session: data.session }
-}
-
-// 发送验证码
-export async function resendVerificationCode(email: string) {
-  const { error } = await supabase
-    .auth
-    .resend({ email, type: 'signup' })
-  
-  if (error) {
-    console.error('Error resending verification code:', error)
-    return { success: false, error: error.message }
-  }
-  
-  return { success: true }
-}
-
-// 验证邮箱验证码
-export async function verifyEmail(email: string, token: string) {
-  const { data, error } = await supabase
-    .auth
-    .verifyOtp({ email, token, type: 'signup' })
-  
-  if (error) {
-    console.error('Error verifying email:', error)
-    return { success: false, error: error.message }
-  }
-  
-  return { success: true, user: data.user, session: data.session }
+  return { success: true, user: data.user }
 }
 
 // 登录

@@ -32,14 +32,18 @@ const Reader = ({ novelTitle, chapterTitle, content, chapters, currentChapterNum
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-gray-100' : 'bg-white text-gray-800'}`}>
       {/* 顶部导航 */}
-      <header className={`sticky top-0 z-10 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-sm p-4 flex items-center justify-between w-full`}>
-        <h2 className="text-2xl font-bold">{novelTitle}</h2>
+      <header className={`sticky top-0 z-10 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-sm p-4 flex items-center justify-between`}>
         <button
           className={`p-2 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}
           onClick={() => setShowMenu(!showMenu)}
         >
           <Menu className="h-5 w-5" />
         </button>
+        <div className="text-center">
+          <h1 className="text-lg font-bold">{novelTitle}</h1>
+          <p className="text-sm opacity-70">{chapterTitle}</p>
+        </div>
+        <div className="w-8"></div> {/* 占位，保持标题居中 */}
       </header>
 
       {/* 侧边菜单 */}
@@ -71,13 +75,13 @@ const Reader = ({ novelTitle, chapterTitle, content, chapters, currentChapterNum
       )}
 
       {/* 内容区域 */}
-      <main className="px-4 py-8 max-w-2xl mx-auto" style={{ fontSize: `${fontSize}px` }}>
+      <main className="container mx-auto px-4 py-8 max-w-2xl" style={{ fontSize: `${fontSize}px` }}>
         <h2 className="text-2xl font-bold mb-6">{chapterTitle}</h2>
         <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: content }} />
       </main>
 
       {/* 底部控制栏 */}
-      <footer className={`sticky bottom-0 z-10 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-sm p-4 flex items-center justify-between w-full`}>
+      <footer className={`sticky bottom-0 z-10 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-sm p-4 flex items-center justify-between`}>
         <div className="flex items-center space-x-4">
           <button
             className={`p-2 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}

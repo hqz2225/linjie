@@ -205,7 +205,10 @@ export default function NovelDetail() {
                 className="block p-3 hover:bg-gray-50 rounded-md transition-colors duration-200"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-medium">{chapter.title}</span>
+                  <div className="flex items-center space-x-2">
+                    <span className="font-medium">{chapter.title}</span>
+                    <span className="text-gray-400 text-xs">{chapter.word_count || 0}字</span>
+                  </div>
                   <span className="text-gray-400 text-sm">阅读</span>
                 </div>
               </Link>

@@ -97,6 +97,7 @@ export default function ReadPage() {
         novelTitle={novel.title}
         chapterTitle={currentChapter.title}
         content={currentChapter.content}
+        wordCount={currentChapter.word_count || 0}
         chapters={chapters}
         currentChapterNumber={chapterNumber}
         onChapterChange={handleChapterChange}
