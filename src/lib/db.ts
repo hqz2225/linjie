@@ -74,7 +74,35 @@ export async function signUp(email: string, password: string) {
     return { success: false, error: error.message }
   }
   
-  return { success: true, user: data.user }
+  return { success: true, user: data.user, session: data.session }
+}
+
+// 发送验证码
+export async function resendVerificationCode(email: string) {
+  const { error } = await supabase
+    .auth
+    .resend({ email, type: 'signup' })
+  
+  if (error) {
+    console.error('Error resending verification code:', error)
+    return { success: false, error: error.message }
+  }
+  
+  return { success: true }
+}
+
+// 验证邮箱验证码
+export async function verifyEmail(email: string, token: string) {
+  const { data, error } = await supabase
+    .auth
+    .verifyOtp({ email, token, type: 'signup' })
+  
+  if (error) {
+    console.error('Error verifying email:', error)
+    return { success: false, error: error.message }
+  }
+  
+  return { success: true, user: data.user, session: data.session }
 }
 
 // 登录
