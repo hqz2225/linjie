@@ -68,8 +68,8 @@ const Navbar = () => {
     };
   }, []);
 
-  // 隐藏登录和注册页面的导航栏
-  if (pathname === '/login' || pathname === '/register') {
+  // 隐藏登录、注册和阅读页面的导航栏
+  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/read/')) {
     return null;
   }
 
@@ -90,7 +90,7 @@ const Navbar = () => {
           {/* Logo, Navigation, and User at the top */}
           <div className="py-3 flex items-center justify-between">
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-primary-600">临界小说</span>
+              <span className="text-2xl font-bold text-primary-600">临界</span>
             </Link>
             
             {/* Navigation Links */}
@@ -164,7 +164,7 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-primary-600">临界小说</span>
+              <span className="text-2xl font-bold text-primary-600">临界</span>
             </Link>
 
             {/* Desktop Navigation */}
