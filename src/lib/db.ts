@@ -39,7 +39,7 @@ function calculateWordCount(content: string) {
   // 计算英文单词数（按空格分隔）
   const englishWords = text.match(/\b\w+\b/g)?.length || 0;
   // 计算标点符号数
-  const punctuation = text.match(/[\p{P}\p{S}]/gu)?.length || 0;
+  const punctuation = text.match(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g)?.length || 0;
   return chineseChars + englishWords + punctuation;
 }
 
