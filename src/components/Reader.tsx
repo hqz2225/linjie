@@ -10,14 +10,14 @@ function processContent(content: string) {
     return content;
   }
   
-  // 将连续的换行符转换为段落
-  const paragraphs = content.split(/\n\s*\n/).filter(p => p.trim() !== '');
+  // 将单个或多个换行符转换为段落
+  const paragraphs = content.split(/\n+/).filter(p => p.trim() !== '');
   
   if (paragraphs.length === 0) {
     return '<p>&ensp;&ensp;' + content + '</p>';
   }
   
-  return paragraphs.map(p => '<p>&ensp;&ensp;' + p.replace(/\n/g, '<br>') + '</p>').join('');
+  return paragraphs.map(p => '<p>&ensp;&ensp;' + p + '</p>').join('');
 }
 
 interface ReaderProps {
