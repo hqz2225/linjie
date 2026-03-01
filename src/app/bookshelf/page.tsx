@@ -24,6 +24,7 @@ export default function Bookshelf() {
 
     // 初始获取用户状态
     const getCurrentUser = async () => {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     };

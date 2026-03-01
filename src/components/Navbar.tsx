@@ -25,6 +25,10 @@ const Navbar = () => {
 
     // 初始获取用户状态
     const getCurrentUser = async () => {
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
       setLoading(false);

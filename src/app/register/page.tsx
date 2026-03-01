@@ -57,6 +57,11 @@ export default function RegisterPage() {
     try {
       console.log('开始注册用户:', email);
       
+      if (!supabase) {
+        setError('系统未初始化');
+        return;
+      }
+      
       // 注册用户，Supabase 会自动发送确认邮箱
       const { data, error } = await supabase.auth.signUp({
         email: email,
@@ -90,6 +95,8 @@ export default function RegisterPage() {
     // 轮询检查邮箱验证状态
     const interval = setInterval(async () => {
       try {
+        if (!supabase) return;
+        
         // 尝试登录，检查用户是否已经验证邮箱
         const { data, error } = await supabase.auth.signInWithPassword({
           email: email,
