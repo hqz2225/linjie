@@ -142,7 +142,9 @@ const Navbar = () => {
                       </Link>
                       <button
                         onClick={async () => {
-                          await supabase.auth.signOut();
+                          if (supabase) {
+                            await supabase.auth.signOut();
+                          }
                           setMenuOpen(false);
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"
@@ -252,7 +254,9 @@ const Navbar = () => {
                       </Link>
                       <button
                         onClick={async () => {
-                          await supabase.auth.signOut();
+                          if (supabase) {
+                            await supabase.auth.signOut();
+                          }
                           setMenuOpen(false);
                         }}
                         className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"

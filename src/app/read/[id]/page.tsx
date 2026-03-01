@@ -6,7 +6,7 @@ import { useParams, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Reader from '@/components/Reader';
 import { getNovelById, getChapters, getChapter, updateReadingProgress } from '@/lib/db';
-import { supabase } from '@/lib/supabase';
+import supabase from '@/lib/supabase';
 
 export default function ReadPage() {
   const params = useParams();
@@ -23,12 +23,15 @@ export default function ReadPage() {
 
   // 监听用户认证状态
   useEffect(() => {
+    if (!supabase) return;
+    
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null);
     });
 
     // 初始获取用户状态
     const getCurrentUser = async () => {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     };

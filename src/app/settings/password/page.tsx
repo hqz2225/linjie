@@ -24,6 +24,7 @@ const PasswordPage = () => {
     if (!supabase) return;
     
     const getCurrentUserEmail = async () => {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         setEmail(user.email || '');

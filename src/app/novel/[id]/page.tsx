@@ -70,6 +70,8 @@ export default function NovelDetail() {
 
     const checkBookshelf = async () => {
       try {
+        if (!supabase) return;
+        
         const { data, error } = await supabase
           .from('bookshelf')
           .select('id')
@@ -100,7 +102,7 @@ export default function NovelDetail() {
   }
 
   const toggleFavorite = async () => {
-    if (!user) {
+    if (!user || !supabase) {
       // 跳转到登录页面
       window.location.href = '/login';
       return;
