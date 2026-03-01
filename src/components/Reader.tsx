@@ -3,6 +3,23 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, Menu, X, Sun, Moon, Type } from 'lucide-react';
 
+// 处理内容，将换行符转换为HTML段落
+function processContent(content: string) {
+  // 检查是否已经是HTML格式
+  if (content.includes('<p>') || content.includes('<br>')) {
+    return content;
+  }
+  
+  // 将连续的换行符转换为段落
+  const paragraphs = content.split(/\n\s*\n/).filter(p => p.trim() !== '');
+  
+  if (paragraphs.length === 0) {
+    return '<p>&ensp;&ensp;' + content + '</p>';
+  }
+  
+  return paragraphs.map(p => '<p>&ensp;&ensp;' + p.replace(/\n/g, '<br>') + '</p>').join('');
+}
+
 interface ReaderProps {
   novelTitle: string;
   chapterTitle: string;
@@ -74,7 +91,7 @@ const Reader = ({ novelTitle, chapterTitle, content, chapters, currentChapterNum
       {/* 内容区域 */}
       <main className="container mx-auto px-4 py-8 pb-24 max-w-2xl" style={{ fontSize: `${fontSize}px` }}>
         <h2 className="text-2xl font-bold mb-6">{chapterTitle}</h2>
-        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: content }} />
+        <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: processContent(content) }} />
       </main>
 
       {/* 底部控制栏 */}
