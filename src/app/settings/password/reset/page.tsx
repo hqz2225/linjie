@@ -52,6 +52,11 @@ const ResetPasswordPage = () => {
       return;
     }
 
+    if (!supabase) {
+      setError('系统未初始化');
+      return;
+    }
+
     setLoading(true);
 
     try {

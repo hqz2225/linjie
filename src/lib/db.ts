@@ -2,6 +2,8 @@ import supabase from './supabase'
 
 // 获取所有小说
 export async function getNovels() {
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('novels')
     .select('*')
@@ -16,6 +18,8 @@ export async function getNovels() {
 
 // 获取单本小说
 export async function getNovelById(id: string) {
+  if (!supabase) return null;
+  
   const { data, error } = await supabase
     .from('novels')
     .select('*')
@@ -45,6 +49,8 @@ function calculateWordCount(content: string) {
 
 // 获取小说的章节列表
 export async function getChapters(novelId: string) {
+  if (!supabase) return [];
+  
   const { data, error } = await supabase
     .from('chapters')
     .select('*')
@@ -65,6 +71,8 @@ export async function getChapters(novelId: string) {
 
 // 获取单个章节
 export async function getChapter(novelId: string, chapterNumber: number) {
+  if (!supabase) return null;
+  
   const { data, error } = await supabase
     .from('chapters')
     .select('*')
@@ -86,6 +94,8 @@ export async function getChapter(novelId: string, chapterNumber: number) {
 
 // 注册
 export async function signUp(email: string, password: string) {
+  if (!supabase) return { success: false, error: 'Supabase not initialized' };
+  
   const { data, error } = await supabase
     .auth
     .signUp({ email, password })
@@ -100,6 +110,8 @@ export async function signUp(email: string, password: string) {
 
 // 登录
 export async function signIn(email: string, password: string) {
+  if (!supabase) return { success: false, error: 'Supabase not initialized' };
+  
   const { data, error } = await supabase
     .auth
     .signInWithPassword({ email, password })
@@ -114,6 +126,8 @@ export async function signIn(email: string, password: string) {
 
 // 加入或移除书架
 export async function addToBookshelf(novel_id: string) {
+  if (!supabase) return { success: false, error: 'Supabase not initialized' };
+  
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) {
@@ -157,6 +171,8 @@ export async function addToBookshelf(novel_id: string) {
 
 // 获取当前用户书架
 export async function getBookshelf() {
+  if (!supabase) return { success: false, error: 'Supabase not initialized' };
+  
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) {
@@ -181,6 +197,8 @@ export async function getBookshelf() {
 
 // 更新阅读进度
 export async function updateReadingProgress(novel_id: string, chapter: number) {
+  if (!supabase) return { success: false, error: 'Supabase not initialized' };
+  
   const { data: { user } } = await supabase.auth.getUser()
   
   if (!user) {

@@ -21,13 +21,15 @@ const PasswordPage = () => {
 
   // 获取当前用户邮箱
   useEffect(() => {
+    if (!supabase) return;
+    
     const getCurrentUserEmail = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         setEmail(user.email || '');
       }
     };
-    getCurrentUserEmail();
+    getCurrentUser();
   }, []);
 
   // 处理发送验证邮件
@@ -37,6 +39,11 @@ const PasswordPage = () => {
 
     if (!email) {
       setError('请输入邮箱地址');
+      return;
+    }
+
+    if (!supabase) {
+      setError('系统未初始化');
       return;
     }
 
@@ -86,6 +93,11 @@ const PasswordPage = () => {
 
     if (newPassword.length < 6) {
       setError('新密码长度至少为6位');
+      return;
+    }
+
+    if (!supabase) {
+      setError('系统未初始化');
       return;
     }
 
