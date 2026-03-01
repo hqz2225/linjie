@@ -29,7 +29,7 @@ const PasswordPage = () => {
         setEmail(user.email || '');
       }
     };
-    getCurrentUser();
+    getCurrentUserEmail();
   }, []);
 
   // 处理发送验证邮件
