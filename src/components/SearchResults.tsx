@@ -16,7 +16,9 @@ const SearchResults = ({ searchTerm = '' }: SearchResultsProps) => {
     const fetchNovels = async () => {
       try {
         const data = await getNovels();
-        setNovels(data);
+        // 随机排序小说
+        const shuffledNovels = shuffleArray(data);
+        setNovels(shuffledNovels);
       } catch (error) {
         console.error('Error fetching novels:', error);
       } finally {
@@ -26,6 +28,16 @@ const SearchResults = ({ searchTerm = '' }: SearchResultsProps) => {
 
     fetchNovels();
   }, []);
+
+  // 随机排序数组
+  const shuffleArray = (array: any[]) => {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   // 过滤小说
   const filteredNovels = searchTerm

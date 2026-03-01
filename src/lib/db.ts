@@ -1,4 +1,4 @@
-import { supabase } from './supabase'
+import supabase from './supabase'
 
 // 获取所有小说
 export async function getNovels() {
@@ -165,8 +165,9 @@ export async function getBookshelf() {
   
   const { data, error } = await supabase
     .from('bookshelf')
-    .select('novels(*)')
+    .select('created_at, novels(*)')
     .eq('user_id', user.id)
+    .order('created_at', { ascending: true }) // 按收藏时间正序排序
   
   if (error) {
     console.error('Error getting bookshelf:', error)

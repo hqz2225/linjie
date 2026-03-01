@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Search, User, LogOut } from 'lucide-react';
+import { Search, User, LogOut, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import supabase from '@/lib/supabase';
 
 const Navbar = () => {
   const [user, setUser] = useState<any>(null);
@@ -68,8 +68,8 @@ const Navbar = () => {
     };
   }, []);
 
-  // 隐藏登录、注册和阅读页面的导航栏
-  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/read/')) {
+  // 隐藏登录、注册、阅读和密码修改页面的导航栏
+  if (pathname === '/login' || pathname === '/register' || pathname.startsWith('/read/') || pathname.startsWith('/settings/password')) {
     return null;
   }
 
@@ -123,6 +123,14 @@ const Navbar = () => {
                         {user.email || '用户'}
                       </div>
                       <div className="border-t border-gray-100 my-1"></div>
+                      <Link
+                        href="/settings"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <Settings className="h-4 w-4" />
+                        <span>设置</span>
+                      </Link>
                       <button
                         onClick={async () => {
                           await supabase.auth.signOut();
@@ -225,6 +233,14 @@ const Navbar = () => {
                         {user.email || '用户'}
                       </div>
                       <div className="border-t border-gray-100 my-1"></div>
+                      <Link
+                        href="/settings"
+                        className="w-full text-left px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <Settings className="h-4 w-4" />
+                        <span>设置</span>
+                      </Link>
                       <button
                         onClick={async () => {
                           await supabase.auth.signOut();

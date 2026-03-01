@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { signUp } from '@/lib/db';
-import { supabase } from '@/lib/supabase';
+import supabase from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 

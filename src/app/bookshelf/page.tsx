@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import NovelCard from '@/components/NovelCard';
 import { getBookshelf } from '@/lib/db';
-import { supabase } from '@/lib/supabase';
+import supabase from '@/lib/supabase';
 
 export default function Bookshelf() {
   const [bookshelfNovels, setBookshelfNovels] = useState<any[]>([]);
