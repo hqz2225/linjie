@@ -14,10 +14,10 @@ function processContent(content: string) {
   const paragraphs = content.split(/\n+/).filter(p => p.trim() !== '');
   
   if (paragraphs.length === 0) {
-    return '<p>&ensp;&ensp;' + content + '</p>';
+    return '<p style="text-indent: 2em;">' + content + '</p>';
   }
   
-  return paragraphs.map(p => '<p>&ensp;&ensp;' + p + '</p>').join('');
+  return paragraphs.map(p => '<p style="text-indent: 2em;">' + p + '</p>').join('');
 }
 
 interface ReaderProps {
