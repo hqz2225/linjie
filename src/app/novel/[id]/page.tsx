@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Heart, HeartOff } from 'lucide-react';
 import { getNovelById, getChapters, addToBookshelf } from '@/lib/db';
-import { supabase } from '@/lib/supabase';
+import supabase from '@/lib/supabase';
 
 export default function NovelDetail() {
   const params = useParams();
@@ -21,12 +21,15 @@ export default function NovelDetail() {
 
   // 监听用户认证状态
   useEffect(() => {
+    if (!supabase) return;
+    
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null);
     });
 
     // 初始获取用户状态
     const getCurrentUser = async () => {
+      if (!supabase) return;
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     };
@@ -63,7 +66,7 @@ export default function NovelDetail() {
 
   // 初始化收藏状态
   useEffect(() => {
-    if (!user) return;
+    if (!user || !supabase) return;
 
     const checkBookshelf = async () => {
       try {
@@ -86,7 +89,7 @@ export default function NovelDetail() {
     };
 
     checkBookshelf();
-  }, [user, novelId]);
+  }, [user, novelId, supabase]);
 
   if (loading) {
     return <div className="text-center py-16">加载中...</div>;
